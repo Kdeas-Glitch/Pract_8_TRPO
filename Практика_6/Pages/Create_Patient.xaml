@@ -1,0 +1,51 @@
+﻿<Page x:Class="Практика_7.Pages.Create_Patient"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Практика_7.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Create_Patient">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="137*"/>
+            <ColumnDefinition Width="263*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="2" >
+            <Grid x:Name="Reg_pacient">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="145"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Margin="5">Имя:</Label>
+                <TextBox Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="1" Height="20" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Grid.Row="1" Grid.Column="0" Margin="5">Фамилия:</Label>
+                <TextBox Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="1" Height="20" Text="{Binding Last_Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Grid.Row="2" Grid.Column="0" Margin="5">Отчество:</Label>
+                <TextBox Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="1" Height="20" Text="{Binding Middle_Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Grid.Row="3" Grid.Column="0" Margin="5">День Рождения:</Label>
+                <TextBox Height="25" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding BirthDay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Grid.Row="4" Grid.Column="0" Margin="2 3">Диагноз:</Label>
+                <TextBox Height="25" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Diagnosis, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Grid.Row="5" Grid.Column="0" Margin="2 3">Рекомендации:</Label>
+                <TextBox  Grid.Row="6" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding Recomendations, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Button Grid.Row="9" Grid.Column="1" Click="Regiser_pac">Зарегестрировать</Button>
+                <Button Grid.Row="9" Grid.Column="2" Click="Go_Back">Назад</Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

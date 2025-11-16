@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Регистрация нового пользователя" Height="650" Width="850"
         >
-    <StackPanel Orientation="Vertical">
+    <!--<StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical">
                 <Border BorderThickness="2" BorderBrush="Black" Width="285" HorizontalAlignment="Left">
@@ -247,7 +247,8 @@
             <Label Grid.Column="3" Content="{Binding Doc, UpdateSourceTrigger=PropertyChanged}"></Label>
         </Grid>
         
-    </StackPanel>
+    </StackPanel>-->
+    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
 
 
 
