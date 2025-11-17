@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,10 +25,11 @@ namespace Практика_7.Pages
     public partial class Change_Information : Page
     {
         private Pacient patient = new Pacient();
-
-        public Change_Information()
+        ObservableCollection<Pacient> pacients;
+        public Change_Information(ObservableCollection<Pacient> Pacients)
         {
             InitializeComponent();
+            pacients = Pacients;
             FindPatient.DataContext = patient;
 
         }
@@ -45,6 +47,7 @@ namespace Практика_7.Pages
                             string jsonString = File.ReadAllText(fileName);
                             patient = JsonSerializer.Deserialize<Pacient>(jsonString)!;
                         patient.Id = i.ToString();
+                        pacients[i] = patient;
                             if (patient != null)
                             {
                                 Change_pacient.DataContext = patient;
@@ -101,6 +104,7 @@ namespace Практика_7.Pages
                         string fileName = $"D_{i.ToString().PadLeft(7, '0')}.json";
                         File.WriteAllText(fileName, jsonString);
                         MessageBox.Show($"Ваш ID={i.ToString().PadLeft(7, '0')}");
+                        
                     }
                     else
                     {

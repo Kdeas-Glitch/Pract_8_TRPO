@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,8 +26,9 @@ namespace Практика_7.Pages
     public partial class Main_Page : Page
     {
         private Doctor people = new Doctor();
+        private System_onl sys = new System_onl();
         public int idef = 0;
-        private List<Pacient> pacients= new List<Pacient>();
+        private ObservableCollection<Pacient> pacients= new ObservableCollection<Pacient>();
         public Main_Page(Doctor d)
         {
             InitializeComponent();
@@ -44,25 +47,29 @@ namespace Практика_7.Pages
                 }
                 else
                 {
+                    sys.Pac = i.ToString();
                     break;
                 }
             }
+
+            System_.DataContext = sys;
             List_Rec.ItemsSource = pacients;
             people = d;
             Sec_Win.DataContext = people;
         }
+       
 
         private void Create_pat(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Create_Patient(people));
+            NavigationService.Navigate(new Create_Patient(people,pacients,sys));
         }
         private void Start_Rec(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Priem(people));
+            NavigationService.Navigate(new Priem(people,pacients));
         }
         private void Change_Inf(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Change_Information());
+            NavigationService.Navigate(new Change_Information(pacients));
         }
     }
 }

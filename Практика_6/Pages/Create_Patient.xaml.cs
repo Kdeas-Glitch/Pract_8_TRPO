@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,11 +29,15 @@ namespace Практика_7.Pages
         private Pacient npatient = new Pacient();
         private Doctor people = new Doctor();
         public int i=0;
-        public Create_Patient(Doctor people)
+        ObservableCollection<Pacient> pacients;
+        private System_onl sys = new System_onl();
+        public Create_Patient(Doctor people, ObservableCollection<Pacient> Pacients,System_onl s)
         {
             this.people = people;
             InitializeComponent();
             Reg_pacient.DataContext = npatient;
+            pacients = Pacients;
+            sys = s;
         }
 
         private void Regiser_pac(object sender, RoutedEventArgs e)
@@ -55,17 +60,12 @@ namespace Практика_7.Pages
                         }
                     }
                     currentpacient.Id = $"{i}";
-                    Reception r = new Reception();
-                    r.Doctor_id = Convert.ToInt32(people.Id);
-                    r.Date = DateTime.Now.ToString();
-                    r.Diagnosis=npatient.Diagnosis;
-                    r.Recomendations = npatient.Recomendations;
-                    currentpacient.AppointmentStories.Add(r);
-                    
+                    pacients.Add(currentpacient);
                     string jsonString = JsonSerializer.Serialize(currentpacient);
                     string fileName = $"D_{i.ToString().PadLeft(7, '0')}.json";
                     File.WriteAllText(fileName, jsonString);
                     MessageBox.Show($"Ваш ID={i.ToString().PadLeft(7, '0')}");
+                    sys.Pac = (Convert.ToInt32(sys.Pac) + 1).ToString();
                     NavigationService.GoBack();
                 }
                 else

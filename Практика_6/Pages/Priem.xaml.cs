@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,12 +29,14 @@ namespace Практика_7.Pages
         private Doctor people = new Doctor();
         private Pacient patient = new Pacient();
         private List<Reception> reception = new List<Reception>();
-        public Priem(Doctor d)
+        ObservableCollection<Pacient> pacients;
+        public Priem(Doctor d, ObservableCollection<Pacient> Pacients)
         {
             InitializeComponent();
             people = d;
             Priem_Pat.DataContext = patient;
             FindPatient.DataContext = patient;
+            pacients = Pacients;
         }
 
 
@@ -57,9 +60,10 @@ namespace Практика_7.Pages
                         reception = patient.AppointmentStories;
                         List_Rec.ItemsSource = reception;
                         string jsonString = JsonSerializer.Serialize(currentpacient);
-                        string fileName = $"D_{i.ToString().PadLeft(7, '0')}.json";
+                        string fileName = $"P_{i.ToString().PadLeft(7, '0')}.json";
                         File.WriteAllText(fileName, jsonString);
                         MessageBox.Show($"Ваш ID={i.ToString().PadLeft(7, '0')}");
+                        NavigationService.GoBack();
 
                     }
                     else
@@ -85,7 +89,7 @@ namespace Практика_7.Pages
                 if (patient.Id != "" && patient.Id != null)
                 {
                         int i = Convert.ToInt32(patient.Id);
-                        string fileName = $"D_{i.ToString().PadLeft(7, '0')}.json";
+                        string fileName = $"P_{i.ToString().PadLeft(7, '0')}.json";
                         if (File.Exists(fileName))
                         {
                             string jsonString = File.ReadAllText(fileName);
@@ -130,7 +134,7 @@ namespace Практика_7.Pages
         }
         private void Change_Inf(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Change_Information());
+            NavigationService.Navigate(new Change_Information(pacients));
         }
     }
 }

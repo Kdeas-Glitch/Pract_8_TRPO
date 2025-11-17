@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.IO;
 
 using Практика_6;
+using System.Collections.ObjectModel;
 
 namespace Практика_7.Pages
 {
@@ -25,6 +26,7 @@ namespace Практика_7.Pages
     public partial class Registration : Page
     {
         private Doctor CurrentUser = new Doctor();//Регистрация пользователя
+        ObservableCollection<Pacient> pacients;
         public Registration()
         {
             InitializeComponent();
@@ -53,10 +55,10 @@ namespace Практика_7.Pages
                         }
                         currentUser.Id = $"{i}";
                         string jsonString = JsonSerializer.Serialize(currentUser);
-
                         string fileName = $"D_{i.ToString().PadLeft(5, '0')}.json";
                         File.WriteAllText(fileName, jsonString);
                         MessageBox.Show($"Ваш ID={i.ToString().PadLeft(5, '0')}");
+                        
                         NavigationService.Navigate(new Main_Page(currentUser));
                     }
                     else
